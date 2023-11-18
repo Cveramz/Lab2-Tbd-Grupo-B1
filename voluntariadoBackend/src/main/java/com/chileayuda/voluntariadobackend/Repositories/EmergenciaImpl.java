@@ -25,8 +25,8 @@ public class EmergenciaImpl implements EmergenciaRepository {
     @Override
     public Emergencia createEmergencia (Emergencia emergencia_in) {
         try (Connection connection = sql2o.open()) {
-            String sql = "INSERT INTO emergencia (id_emergencia,id_institucion, tipo,ubicacion,equipamiento_necesario, titulo, descripcion, latitud, longitud)" +
-                    "VALUES (:id_emergencia, :id_institucion, :tipo, :ubicacion, :equipamiento_necesario, :titulo, :descripcion, :latitud, :longitud)";
+            String sql = "INSERT INTO emergencia (id_emergencia,id_institucion, tipo,ubicacion,equipamiento_necesario, titulo, descripcion, latitud, longitud, ubicacionGeom)" +
+                    "VALUES (:id_emergencia, :id_institucion, :tipo, :ubicacion, :equipamiento_necesario, :titulo, :descripcion, :latitud, :longitud , :ubicacionGeom)";
             connection.createQuery(sql, true)
                     .addParameter("id_emergencia", emergencia_in.getIdEmergencia())
                     .addParameter("id_institucion", emergencia_in.getIdInstitucion())
@@ -37,6 +37,7 @@ public class EmergenciaImpl implements EmergenciaRepository {
                     .addParameter("descripcion", emergencia_in.getDescripcion())
                     .addParameter("latitud", emergencia_in.getLatitud())
                     .addParameter("longitud", emergencia_in.getLongitud())
+                    .addParameter("ubicacionGeom", emergencia_in.getUbicacionGeom())
                     .executeUpdate();
             return emergencia_in;
         } catch (Exception exception) {

@@ -1,6 +1,8 @@
 package com.chileayuda.voluntariadobackend.Models;
 
 
+import java.awt.*;
+
 public class Voluntario {
     //ATRIBUTOS
 
@@ -14,8 +16,9 @@ public class Voluntario {
     private String password_voluntario;
     private float latitud;
     private float longitud;
+    private Point ubicacionGeom;
 
-    public Voluntario(Long id_voluntario, String nombre_voluntario, int edad, String equipamiento, Boolean estado_salud, Boolean disponibilidad, String email_voluntario, String password_voluntario, float latitud, float longitud) {
+    public Voluntario(Long id_voluntario, String nombre_voluntario, int edad, String equipamiento, Boolean estado_salud, Boolean disponibilidad, String email_voluntario, String password_voluntario, float latitud, float longitud, Point ubicacionGeom) {
         this.id_voluntario = id_voluntario;
         this.nombre_voluntario = nombre_voluntario;
         this.edad = edad;
@@ -26,6 +29,7 @@ public class Voluntario {
         this.password_voluntario = password_voluntario;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.ubicacionGeom = ubicacionGeom;
     }
 
     public Long getId_voluntario() {
@@ -102,6 +106,12 @@ public class Voluntario {
     }
     public float getLongitud() {
         return longitud;
+    }
+    public Point getUbicacionGeom() {
+        return ubicacionGeom;
+    }
+    public void setUbicacionGeom(Point ubicacionGeom) {
+        this.ubicacionGeom = ubicacionGeom;
     }
 }
 

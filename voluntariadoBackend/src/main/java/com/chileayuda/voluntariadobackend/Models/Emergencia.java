@@ -1,5 +1,7 @@
 package com.chileayuda.voluntariadobackend.Models;
 
+import java.awt.*;
+
 public class Emergencia {
     //ATRIBUTOS
     private Integer id_emergencia;
@@ -11,9 +13,9 @@ public class Emergencia {
     private String descripcion;
     private float latitud;
     private float longitud;
+    private Point ubicacionGeom;
 
-
-    public Emergencia(Integer id_emergencia, Integer id_institucion, String tipo, String ubicacion, String equipamiento_necesario, String titulo, String descripcion, float latitud, float longitud) {
+    public Emergencia(Integer id_emergencia, Integer id_institucion, String tipo, String ubicacion, String equipamiento_necesario, String titulo, String descripcion, float latitud, float longitud, Point ubicacionGeom) {
         this.id_emergencia = id_emergencia;
         this.id_institucion = id_institucion;
         this.tipo = tipo;
@@ -23,6 +25,7 @@ public class Emergencia {
         this.descripcion  = descripcion;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.ubicacionGeom = ubicacionGeom;
     }
 
     //GETTERS Y SETTERS
@@ -92,5 +95,11 @@ public class Emergencia {
     }
     public float getLongitud() {
         return longitud;
+    }
+    public Point getUbicacionGeom() {
+        return ubicacionGeom;
+    }
+    public void setUbicacionGeom(Point ubicacionGeom) {
+        this.ubicacionGeom = ubicacionGeom;
     }
 }
