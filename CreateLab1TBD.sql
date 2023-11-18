@@ -1,6 +1,9 @@
 CREATE DATABASE voluntariadoTBD
 USE voluntariadoTBD
 
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+
 -- Tabla Habilidad
 CREATE TABLE habilidad(
     id_habilidad SERIAL PRIMARY KEY,
@@ -35,7 +38,10 @@ CREATE TABLE emergencia(
     id_emergencia SERIAL PRIMARY KEY,
     id_institucion BIGINT REFERENCES institucion(id_institucion),
     tipo VARCHAR(50),
-    ubicacion VARCHAR(50),
+	  latitud DOUBLE PRECISION,
+    longitud DOUBLE PRECISION,
+	  ubicacion_geom GEOMETRY(Point, 4326),
+    direccion VARCHAR(50),
     equipamiento_necesario VARCHAR(50),
     titulo VARCHAR(50),
     descripcion VARCHAR(100)
@@ -65,7 +71,10 @@ CREATE TABLE voluntario(
     estado_salud BOOLEAN,
     disponibilidad BOOLEAN,
     email_voluntario VARCHAR(50),
-    password_voluntario VARCHAR(50)
+    password_voluntario VARCHAR(50),
+	  latitud DOUBLE PRECISION,
+    longitud DOUBLE PRECISION,
+	  ubicacion_geom GEOMETRY(Point, 4326)
 );
 
 -- Tabla Ranking
