@@ -52,7 +52,7 @@ export default {
     <SideBar />
     <div class="view">
       <div class="content">
-        <h1>Crear Emergencia</h1>
+        <h1>Voluntario</h1>
         <p>A continuación rellene la siguiente información</p>
         <div class="form-container">
 
@@ -65,7 +65,7 @@ export default {
               <input type="text" id="tipo-emergencia" v-model="tipo" required>
 
               <label for="ubicacion">Ubicación:</label>
-              <input type="number" id="ubicacion" v-model="ubicacion" required>
+              <input type="text" id="ubicacion" v-model="ubicacion" required>
 
 
               <label for="descripcion">Descripción y requisitos:</label>
