@@ -9,9 +9,11 @@ public class Emergencia {
     private String equipamiento_necesario;
     private String titulo;
     private String descripcion;
+    private float latitud;
+    private float longitud;
 
 
-    public Emergencia(Integer id_emergencia, Integer id_institucion, String tipo, String ubicacion, String equipamiento_necesario, String titulo, String descripcion ) {
+    public Emergencia(Integer id_emergencia, Integer id_institucion, String tipo, String ubicacion, String equipamiento_necesario, String titulo, String descripcion, float latitud, float longitud) {
         this.id_emergencia = id_emergencia;
         this.id_institucion = id_institucion;
         this.tipo = tipo;
@@ -19,7 +21,8 @@ public class Emergencia {
         this.equipamiento_necesario = equipamiento_necesario;
         this.titulo = titulo;
         this.descripcion  = descripcion;
-
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 
     //GETTERS Y SETTERS
@@ -77,5 +80,17 @@ public class Emergencia {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+    public void setLatitud(float latitud) {
+        this.latitud = latitud;
+    }
+    public float getLatitud() {
+        return latitud;
+    }
+    public void setLongitud(float longitud) {
+        this.longitud = longitud;
+    }
+    public float getLongitud() {
+        return longitud;
     }
 }

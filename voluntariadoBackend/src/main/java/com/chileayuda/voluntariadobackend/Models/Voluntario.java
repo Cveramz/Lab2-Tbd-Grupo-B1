@@ -12,8 +12,10 @@ public class Voluntario {
     private Boolean disponibilidad;
     private String email_voluntario;
     private String password_voluntario;
+    private float latitud;
+    private float longitud;
 
-    public Voluntario(Long id_voluntario, String nombre_voluntario, int edad, String equipamiento, Boolean estado_salud, Boolean disponibilidad, String email_voluntario, String password_voluntario) {
+    public Voluntario(Long id_voluntario, String nombre_voluntario, int edad, String equipamiento, Boolean estado_salud, Boolean disponibilidad, String email_voluntario, String password_voluntario, float latitud, float longitud) {
         this.id_voluntario = id_voluntario;
         this.nombre_voluntario = nombre_voluntario;
         this.edad = edad;
@@ -22,6 +24,8 @@ public class Voluntario {
         this.disponibilidad = disponibilidad;
         this.email_voluntario = email_voluntario;
         this.password_voluntario = password_voluntario;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 
     public Long getId_voluntario() {
@@ -86,6 +90,18 @@ public class Voluntario {
 
     public void setPassword_voluntario(String password_voluntario) {
         this.password_voluntario = password_voluntario;
+    }
+    public void setLatitud(float latitud) {
+        this.latitud = latitud;
+    }
+    public float getLatitud() {
+        return latitud;
+    }
+    public void setLongitud(float longitud) {
+        this.longitud = longitud;
+    }
+    public float getLongitud() {
+        return longitud;
     }
 }
 

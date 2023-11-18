@@ -27,8 +27,8 @@ public class VoluntarioImpl implements VoluntarioRepository {
     @Override
     public Voluntario createVol(Voluntario voluntario) {
         try (Connection connection = sql2o.open()) {
-            String sql = "INSERT TO voluntario (id_voluntario,nombre_voluntario,edad,equipamiento,estado_salud,disponibilidad,email_voluntario,password_voluntario)" +
-                    "VALUES (:id_voluntario, :nombr_voluntario, :edad, :estado_salud, :disponibilidad, :email_voluntario, :password_voluntario)";
+            String sql = "INSERT TO voluntario (id_voluntario,nombre_voluntario,edad,equipamiento,estado_salud,disponibilidad,email_voluntario,password_voluntario, longitud, latitud)" +
+                    "VALUES (:id_voluntario, :nombr_voluntario, :edad, :estado_salud, :disponibilidad, :email_voluntario, :password_voluntario, :longitud, :latitud)";
             connection.createQuery(sql, true)
                     .addParameter("id_Voluntario", voluntario.getId_voluntario())
                     .addParameter("nombre_voluntario", voluntario.getNombre_voluntario())
@@ -37,6 +37,8 @@ public class VoluntarioImpl implements VoluntarioRepository {
                     .addParameter("disponibilidad", voluntario.getDisponibilidad())
                     .addParameter("email_voluntario", voluntario.getEmail_voluntario())
                     .addParameter("password_voluntario", voluntario.getPassword_voluntario())
+                    .addParameter("longitud", voluntario.getLongitud())
+                    .addParameter("latitud", voluntario.getLatitud())
                     .executeUpdate();
             return voluntario;
         } catch (Exception exception) {
@@ -94,7 +96,7 @@ public class VoluntarioImpl implements VoluntarioRepository {
     public String updateVol(Voluntario voluntarioUpdate, Integer id_voluntario) {
         try (Connection connection = sql2o.open()) {
             connection.createQuery("UPDATE Voluntario " +
-                            "SET nombre_voluntario =:nombre_voluntario, edad =:edad, estado_salud =:estado_salud, disponibilidad =:disponibilidad, email_voluntario =:email_voluntario, password_voluntario =:password_voluntario" +
+                            "SET nombre_voluntario =:nombre_voluntario, edad =:edad, estado_salud =:estado_salud, disponibilidad =:disponibilidad, email_voluntario =:email_voluntario, password_voluntario =:password_voluntari =:latitud =:longitud" +
                             "WHERE id_voluntario =:id_voluntario")
                     .addParameter("id_voluntario", id_voluntario)
                     .addParameter("nombre_voluntario", voluntarioUpdate.getNombre_voluntario())
@@ -103,6 +105,8 @@ public class VoluntarioImpl implements VoluntarioRepository {
                     .addParameter("disponibilidad", voluntarioUpdate.getDisponibilidad())
                     .addParameter("email_voluntario", voluntarioUpdate.getEmail_voluntario())
                     .addParameter("password_voluntario", voluntarioUpdate.getPassword_voluntario())
+                    .addParameter("longitud", voluntarioUpdate.getLongitud())
+                    .addParameter("latitud", voluntarioUpdate.getLatitud())
                     .executeUpdate();
             return "Actualizado";
         } catch (Exception exception) {

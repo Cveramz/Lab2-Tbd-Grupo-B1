@@ -25,8 +25,8 @@ public class EmergenciaImpl implements EmergenciaRepository {
     @Override
     public Emergencia createEmergencia (Emergencia emergencia_in) {
         try (Connection connection = sql2o.open()) {
-            String sql = "INSERT INTO emergencia (id_emergencia,id_institucion, tipo,ubicacion,equipamiento_necesario, titulo, descripcion)" +
-                    "VALUES (:id_emergencia, :id_institucion, :tipo, :ubicacion, :equipamiento_necesario, :titulo, :descripcion)";
+            String sql = "INSERT INTO emergencia (id_emergencia,id_institucion, tipo,ubicacion,equipamiento_necesario, titulo, descripcion, latitud, longitud)" +
+                    "VALUES (:id_emergencia, :id_institucion, :tipo, :ubicacion, :equipamiento_necesario, :titulo, :descripcion, :latitud, :longitud)";
             connection.createQuery(sql, true)
                     .addParameter("id_emergencia", emergencia_in.getIdEmergencia())
                     .addParameter("id_institucion", emergencia_in.getIdInstitucion())
@@ -35,6 +35,8 @@ public class EmergenciaImpl implements EmergenciaRepository {
                     .addParameter("equipamiento_necesario", emergencia_in.getEquipamiento_necesario())
                     .addParameter("titulo", emergencia_in.getTitulo())
                     .addParameter("descripcion", emergencia_in.getDescripcion())
+                    .addParameter("latitud", emergencia_in.getLatitud())
+                    .addParameter("longitud", emergencia_in.getLongitud())
                     .executeUpdate();
             return emergencia_in;
         } catch (Exception exception) {
@@ -121,7 +123,7 @@ public class EmergenciaImpl implements EmergenciaRepository {
     public String updateEmergencia(Emergencia emergenciaUpdate, Integer id_emergencia) {
         try(Connection connection = sql2o.open()) {
             connection.createQuery("UPDATE Emergencia " +
-                            "SET id_institucion =:id_institucion, tipo =:tipo, ubicacion =:ubicacion, equipamiento_necesario =:equipamiento_necesario" +
+                            "SET id_institucion =:id_institucion, tipo =:tipo, ubicacion =:ubicacion, equipamiento_necesario =:equipamiento_necesario =:latitud =:longitud" +
                             "WHERE id_emergencia =:id_emergencia")
                     .addParameter("id_emergencia", id_emergencia)
                     .addParameter("id_institucion", emergenciaUpdate.getIdInstitucion())
@@ -130,7 +132,8 @@ public class EmergenciaImpl implements EmergenciaRepository {
                     .addParameter("equipamiento_necesario", emergenciaUpdate.getEquipamiento_necesario())
                     .addParameter("titulo", emergenciaUpdate.getTitulo())
                     .addParameter("descripcion", emergenciaUpdate.getDescripcion())
-
+                    .addParameter("latitud", emergenciaUpdate.getLatitud())
+                    .addParameter("longitud", emergenciaUpdate.getLongitud())
                     .executeUpdate();
             return "Informacion actualizada";
         } catch (Exception exception) {
