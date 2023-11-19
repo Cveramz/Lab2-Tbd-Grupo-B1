@@ -108,8 +108,8 @@ CREATE TABLE tarea_habilidad(
 CREATE OR REPLACE FUNCTION emergencia_insert_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO emergencia_log (accion, fecha, id_emergencia, id_institucion, tipo, ubicacion, equipamiento_necesario, titulo, descripcion)
-  VALUES ('INSERT', NOW(), NEW.id_emergencia, NEW.id_institucion, NEW.tipo, NEW.ubicacion, NEW.equipamiento_necesario, NEW.titulo, NEW.descripcion);
+  INSERT INTO emergencia_log (accion, fecha, id_emergencia, id_institucion, tipo, latitud, longitud, ubicacion_geom, direccion, equipamiento_necesario, titulo, descripcion)
+  VALUES ('INSERT', NOW(), NEW.id_emergencia, NEW.id_institucion, NEW.tipo, NEW.latitud, NEW.longitud, NEW.ubicacion_geom, NEW.direccion, NEW.equipamiento_necesario, NEW.titulo, NEW.descripcion);
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -118,8 +118,8 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION emergencia_update_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO emergencia_log (accion, fecha, id_emergencia, id_institucion, tipo, ubicacion, equipamiento_necesario, titulo, descripcion)
-  VALUES ('UPDATE', NOW(), NEW.id_emergencia, NEW.id_institucion, NEW.tipo, NEW.ubicacion, NEW.equipamiento_necesario, NEW.titulo, NEW.descripcion);
+  INSERT INTO emergencia_log (accion, fecha, id_emergencia, id_institucion, tipo, latitud, longitud, ubicacion_geom, direccion, equipamiento_necesario, titulo, descripcion)
+  VALUES ('UPDATE', NOW(), NEW.id_emergencia, NEW.id_institucion, NEW.tipo, NEW.latitud, NEW.longitud, NEW.ubicacion_geom, NEW.direccion, NEW.equipamiento_necesario, NEW.titulo, NEW.descripcion);
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -128,8 +128,8 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION emergencia_delete_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO emergencia_log (accion, fecha, id_emergencia, id_institucion, tipo, ubicacion, equipamiento_necesario, titulo, descripcion)
-  VALUES ('DELETE', NOW(), OLD.id_emergencia, OLD.id_institucion, OLD.tipo, OLD.ubicacion, OLD.equipamiento_necesario, OLD.titulo, OLD.descripcion);
+  INSERT INTO emergencia_log (accion, fecha, id_emergencia, id_institucion, tipo, latitud, longitud, ubicacion_geom, direccion, equipamiento_necesario, titulo, descripcion)
+  VALUES ('DELETE', NOW(), OLD.id_emergencia, OLD.id_institucion, OLD.tipo, OLD.latitud, OLD.longitud, OLD.ubicacion_geom, OLD.direccion, OLD.equipamiento_necesario, OLD.titulo, OLD.descripcion);
   RETURN OLD;
 END;
 $$ LANGUAGE plpgsql;
@@ -157,8 +157,8 @@ EXECUTE FUNCTION emergencia_delete_trigger();
 CREATE OR REPLACE FUNCTION voluntario_insert_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO voluntario_log (accion, fecha, id_voluntario, nombre_voluntario, edad, equipamiento, estado_salud, disponibilidad, email_voluntario)
-  VALUES ('INSERT', NOW(), NEW.id_voluntario, NEW.nombre_voluntario, NEW.edad, NEW.equipamiento, NEW.estado_salud, NEW.disponibilidad, NEW.email_voluntario);
+  INSERT INTO voluntario_log (accion, fecha, id_voluntario, nombre_voluntario, edad, equipamiento, estado_salud, disponibilidad, email_voluntario, latitud, longitud, ubicacion_geom)
+  VALUES ('INSERT', NOW(), NEW.id_voluntario, NEW.nombre_voluntario, NEW.edad, NEW.equipamiento, NEW.estado_salud, NEW.disponibilidad, NEW.email_voluntario, NEW.latitud, NEW.longitud, NEW.ubicacion_geom);
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -167,8 +167,8 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION voluntario_update_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO voluntario_log (accion, fecha, id_voluntario, nombre_voluntario, edad, equipamiento, estado_salud, disponibilidad, email_voluntario)
-  VALUES ('UPDATE', NOW(), NEW.id_voluntario, NEW.nombre_voluntario, NEW.edad, NEW.equipamiento, NEW.estado_salud, NEW.disponibilidad, NEW.email_voluntario);
+  INSERT INTO voluntario_log (accion, fecha, id_voluntario, nombre_voluntario, edad, equipamiento, estado_salud, disponibilidad, email_voluntario, latitud, longitud, ubicacion_geom)
+  VALUES ('UPDATE', NOW(), NEW.id_voluntario, NEW.nombre_voluntario, NEW.edad, NEW.equipamiento, NEW.estado_salud, NEW.disponibilidad, NEW.email_voluntario, NEW.latitud, NEW.longitud, NEW.ubicacion_geom);
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -177,8 +177,8 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION voluntario_delete_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO voluntario_log (accion, fecha, id_voluntario, nombre_voluntario, edad, equipamiento, estado_salud, disponibilidad, email_voluntario)
-  VALUES ('DELETE', NOW(), OLD.id_voluntario, OLD.nombre_voluntario, OLD.edad, OLD.equipamiento, OLD.estado_salud, OLD.disponibilidad, OLD.email_voluntario);
+  INSERT INTO voluntario_log (accion, fecha, id_voluntario, nombre_voluntario, edad, equipamiento, estado_salud, disponibilidad, email_voluntario, latitud, longitud, ubicacion_geom)
+  VALUES ('DELETE', NOW(), OLD.id_voluntario, OLD.nombre_voluntario, OLD.edad, OLD.equipamiento, OLD.estado_salud, OLD.disponibilidad, OLD.email_voluntario, OLD.latitud, OLD.longitud, OLD.ubicacion_geom);
   RETURN OLD;
 END;
 $$ LANGUAGE plpgsql;
@@ -206,7 +206,10 @@ CREATE TABLE emergencia_log (
                                 id_emergencia BIGINT,
                                 id_institucion BIGINT,
                                 tipo VARCHAR(50),
-                                ubicacion VARCHAR(50),
+                                latitud DOUBLE PRECISION,
+                                longitud DOUBLE PRECISION,
+                                ubicacion_geom GEOMETRY(Point, 4326),
+                                direccion VARCHAR(50),
                                 equipamiento_necesario VARCHAR(50),
                                 titulo VARCHAR(50),
                                 descripcion VARCHAR(100)
@@ -222,5 +225,8 @@ CREATE TABLE voluntario_log (
                                 equipamiento VARCHAR(100),
                                 estado_salud BOOLEAN,
                                 disponibilidad BOOLEAN,
-                                email_voluntario VARCHAR(50)
+                                email_voluntario VARCHAR(50),
+                                latitud DOUBLE PRECISION,
+                                longitud  DOUBLE PRECISION,
+                                ubicacion_geom GEOMETRY(Point, 4326)
 );
