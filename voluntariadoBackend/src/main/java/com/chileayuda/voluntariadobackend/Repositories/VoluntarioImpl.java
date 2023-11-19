@@ -27,20 +27,32 @@ public class VoluntarioImpl implements VoluntarioRepository {
     @Override
     public Voluntario createVol(Voluntario voluntario) {
         try (Connection connection = sql2o.open()) {
-            String sql = "INSERT TO voluntario (id_voluntario,nombre_voluntario,edad,equipamiento,estado_salud,disponibilidad,email_voluntario,password_voluntario, longitud, latitud, ubicacionGeom)" +
-                    "VALUES (:id_voluntario, :nombr_voluntario, :edad, :estado_salud, :disponibilidad, :email_voluntario, :password_voluntario, :longitud, :latitud, :ubicacionGeom)";
-            connection.createQuery(sql, true)
-                    .addParameter("id_Voluntario", voluntario.getId_voluntario())
+            // Paso 1: Guardar la información del voluntario
+            String sql = "INSERT INTO voluntario (id_voluntario, nombre_voluntario, edad, equipamiento, estado_salud, disponibilidad, email_voluntario, password_voluntario, longitud, latitud ,ubicacion_geom) " +
+                    "VALUES (:id_voluntario, :nombre_voluntario, :edad, :equipamiento, :estado_salud, :disponibilidad, :email_voluntario, :password_voluntario, :longitud, :latitud, :ubicacion_geom )";
+            Long id = connection.createQuery(sql, true)
+                    .addParameter("id_voluntario", voluntario.getId_voluntario())
                     .addParameter("nombre_voluntario", voluntario.getNombre_voluntario())
                     .addParameter("edad", voluntario.getEdad())
+                    .addParameter("equipamiento", voluntario.getEquipamiento())
                     .addParameter("estado_salud", voluntario.getEstado_salud())
                     .addParameter("disponibilidad", voluntario.getDisponibilidad())
                     .addParameter("email_voluntario", voluntario.getEmail_voluntario())
                     .addParameter("password_voluntario", voluntario.getPassword_voluntario())
                     .addParameter("longitud", voluntario.getLongitud())
                     .addParameter("latitud", voluntario.getLatitud())
-                    .addParameter("ubicacionGeom", voluntario.getUbicacionGeom())
+                    .addParameter("ubicacion_geom", voluntario.getUbicacion_geom())
+                    .executeUpdate()
+                    .getKey(Long.class);
+
+            // Paso 2: Crear el punto geométrico y actualizar la ubicación_geom
+            String updateGeomSql = "UPDATE voluntario SET ubicacion_geom = ST_SetSRID(ST_MakePoint(:latitud, :longitud), 4326) WHERE id_voluntario = :id_voluntario";
+            connection.createQuery(updateGeomSql)
+                    .addParameter("id_voluntario", id)
+                    .addParameter("latitud", voluntario.getLatitud())
+                    .addParameter("longitud", voluntario.getLongitud())
                     .executeUpdate();
+
             return voluntario;
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
@@ -97,7 +109,7 @@ public class VoluntarioImpl implements VoluntarioRepository {
     public String updateVol(Voluntario voluntarioUpdate, Integer id_voluntario) {
         try (Connection connection = sql2o.open()) {
             connection.createQuery("UPDATE Voluntario " +
-                            "SET nombre_voluntario =:nombre_voluntario, edad =:edad, estado_salud =:estado_salud, disponibilidad =:disponibilidad, email_voluntario =:email_voluntario, password_voluntario =:password_voluntari =:latitud =:longitud" +
+                            "SET nombre_voluntario =:nombre_voluntario, edad =:edad, estado_salud =:estado_salud, disponibilidad =:disponibilidad, email_voluntario =:email_voluntario, password_voluntario =:password_voluntari =:latitud =:longitud =:ubicacion_geom" +
                             "WHERE id_voluntario =:id_voluntario")
                     .addParameter("id_voluntario", id_voluntario)
                     .addParameter("nombre_voluntario", voluntarioUpdate.getNombre_voluntario())
@@ -108,7 +120,7 @@ public class VoluntarioImpl implements VoluntarioRepository {
                     .addParameter("password_voluntario", voluntarioUpdate.getPassword_voluntario())
                     .addParameter("longitud", voluntarioUpdate.getLongitud())
                     .addParameter("latitud", voluntarioUpdate.getLatitud())
-                    .addParameter("ubicacionGeom", voluntarioUpdate.getUbicacionGeom())
+                    .addParameter("ubicacionGeom", voluntarioUpdate.getUbicacion_geom())
                     .executeUpdate();
             return "Actualizado";
         } catch (Exception exception) {

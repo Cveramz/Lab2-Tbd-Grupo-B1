@@ -1,6 +1,5 @@
 package com.chileayuda.voluntariadobackend.Models;
 
-
 import java.awt.*;
 
 public class Voluntario {
@@ -14,11 +13,12 @@ public class Voluntario {
     private Boolean disponibilidad;
     private String email_voluntario;
     private String password_voluntario;
-    private float latitud;
-    private float longitud;
-    private Point ubicacionGeom;
+    private double latitud;
+    private double longitud;
 
-    public Voluntario(Long id_voluntario, String nombre_voluntario, int edad, String equipamiento, Boolean estado_salud, Boolean disponibilidad, String email_voluntario, String password_voluntario, float latitud, float longitud, Point ubicacionGeom) {
+    private Point ubicacion_geom;
+
+    public Voluntario(Long id_voluntario, String nombre_voluntario, int edad, String equipamiento, Boolean estado_salud, Boolean disponibilidad, String email_voluntario, String password_voluntario, double latitud, double longitud, Point ubicacion_geom) {
         this.id_voluntario = id_voluntario;
         this.nombre_voluntario = nombre_voluntario;
         this.edad = edad;
@@ -29,7 +29,7 @@ public class Voluntario {
         this.password_voluntario = password_voluntario;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.ubicacionGeom = ubicacionGeom;
+        this.ubicacion_geom = ubicacion_geom;
     }
 
     public Long getId_voluntario() {
@@ -95,23 +95,23 @@ public class Voluntario {
     public void setPassword_voluntario(String password_voluntario) {
         this.password_voluntario = password_voluntario;
     }
-    public void setLatitud(float latitud) {
+    public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
-    public float getLatitud() {
+    public double getLatitud() {
         return latitud;
     }
-    public void setLongitud(float longitud) {
+    public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
-    public float getLongitud() {
+    public double getLongitud() {
         return longitud;
     }
-    public Point getUbicacionGeom() {
-        return ubicacionGeom;
+    public Point getUbicacion_geom() {
+        return ubicacion_geom;
     }
-    public void setUbicacionGeom(Point ubicacionGeom) {
-        this.ubicacionGeom = ubicacionGeom;
+    public void setUbicacion_geom(Point ubicacionGeom) {
+        this.ubicacion_geom = ubicacionGeom;
     }
 }
 
