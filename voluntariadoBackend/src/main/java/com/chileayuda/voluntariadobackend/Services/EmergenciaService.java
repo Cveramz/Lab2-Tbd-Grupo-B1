@@ -29,7 +29,8 @@ public class EmergenciaService {
     @PostMapping("/emergencia")
     @ResponseBody
     public Emergencia create(@RequestBody Emergencia emergencia) {
-        return emergenciaRepository.createEmergencia(emergencia);
+        emergenciaRepository.createEmergencia(emergencia);
+        return emergencia;
     }
 
     /*--------------------------------------------------------------------------------------------------------
