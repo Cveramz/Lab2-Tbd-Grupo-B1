@@ -11,6 +11,6 @@ public interface VoluntarioRepository {
     public List<Voluntario> findAllVoluntarios();
     public String updateVol(Voluntario volUpdate, Integer id);
     public void deleteByIdVol(Integer id);
-    //public List<Voluntario> getVoluntariosCercanos(Integer N, Emergencia emergencia);
+    public List<Voluntario> getVoluntariosCercanos(Integer N, Emergencia emergencia);
 
 }
