@@ -1,10 +1,13 @@
 package com.chileayuda.voluntariadobackend.Repositories;
 
+import com.chileayuda.voluntariadobackend.Models.Emergencia;
 import com.chileayuda.voluntariadobackend.Models.Voluntario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -146,4 +149,30 @@ public class VoluntarioImpl implements VoluntarioRepository {
             System.out.println(exception.getMessage());
         }
     }
+
+    /*--------------------------------------------------------------------------------------------------------
+     * getVoluntariosCercanos: metodo que obtiene a los voluntarios mas cercanos a una emergencia;
+     *
+     * @param N - cantidad de voluntarios solicitados;
+     * @param emergencia - emergencia solicitada;
+     * @return - la lista de N voluntarios;
+     *
+     --------------------------------------------------------------------------------------------------------*/
+    /*
+    @Override
+    public List<Voluntario> getVoluntariosCercanos(Integer N, Emergencia emergencia){
+        List<Voluntario> allVoluntarios = findAllVoluntarios();
+        double LatitudE = emergencia.getLatitud();
+        double LongitudE = emergencia.getLongitud();
+        List<Voluntario> NVoluntarios = new ArrayList<>();
+
+        //calculo distancia Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2));
+        return null;
+    }
+   */
+
+
+
 }
+
+

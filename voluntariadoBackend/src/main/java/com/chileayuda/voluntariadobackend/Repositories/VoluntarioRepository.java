@@ -1,5 +1,6 @@
 package com.chileayuda.voluntariadobackend.Repositories;
 
+import com.chileayuda.voluntariadobackend.Models.Emergencia;
 import com.chileayuda.voluntariadobackend.Models.Voluntario;
 import java.util.List;
 public interface VoluntarioRepository {
@@ -10,5 +11,6 @@ public interface VoluntarioRepository {
     public List<Voluntario> findAllVoluntarios();
     public String updateVol(Voluntario volUpdate, Integer id);
     public void deleteByIdVol(Integer id);
+    //public List<Voluntario> getVoluntariosCercanos(Integer N, Emergencia emergencia);
 
 }
