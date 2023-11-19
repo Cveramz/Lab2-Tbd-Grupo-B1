@@ -28,8 +28,8 @@ public class EmergenciaImpl implements EmergenciaRepository {
     @Override
     public Emergencia createEmergencia (Emergencia emergencia_in) {
         try (Connection connection = sql2o.open()) {
-            String sql = "INSERT INTO emergencia (id_emergencia,id_institucion, tipo,equipamiento_necesario, titulo, descripcion, latitud, longitud, ubicacionGeom, direccion)" +
-                    "VALUES (:id_emergencia, :id_institucion, :tipo, :equipamiento_necesario, :titulo, :descripcion, :latitud, :longitud , :ubicacionGeom, :direccion)";
+            String sql = "INSERT INTO emergencia (id_emergencia,id_institucion, tipo,equipamiento_necesario, titulo, descripcion, latitud, longitud, ubicacion_geom, direccion)" +
+                    "VALUES (:id_emergencia, :id_institucion, :tipo, :equipamiento_necesario, :titulo, :descripcion, :latitud, :longitud , :ubicacion_geom, :direccion)";
             Long id = connection.createQuery(sql, true)
                     .addParameter("id_emergencia", emergencia_in.getIdEmergencia())
                     .addParameter("id_institucion", emergencia_in.getIdInstitucion())
@@ -39,12 +39,12 @@ public class EmergenciaImpl implements EmergenciaRepository {
                     .addParameter("descripcion", emergencia_in.getDescripcion())
                     .addParameter("latitud", emergencia_in.getLatitud())
                     .addParameter("longitud", emergencia_in.getLongitud())
-                    .addParameter("ubicacionGeom", emergencia_in.getUbicacionGeom())
+                    .addParameter("ubicacion_geom", emergencia_in.getUbicacionGeom())
                     .addParameter("direccion", emergencia_in.getDireccion())
                     .executeUpdate()
                     .getKey(Long.class);
             // Paso 2: Crear el punto geométrico y actualizar la ubicación_geom
-            String updateGeomSql = "UPDATE emergencia SET ubicacionGeom = ST_SetSRID(ST_MakePoint(:latitud, :longitud), 4326) WHERE id_emergencia = :id_emergencia";
+            String updateGeomSql = "UPDATE emergencia SET ubicacion_geom = ST_SetSRID(ST_MakePoint(:latitud, :longitud), 4326) WHERE id_emergencia = :id_emergencia";
             connection.createQuery(updateGeomSql)
                     .addParameter("id_emergencia", id)
                     .addParameter("latitud", emergencia_in.getLatitud())
@@ -136,7 +136,7 @@ public class EmergenciaImpl implements EmergenciaRepository {
     public String updateEmergencia(Emergencia emergenciaUpdate, Integer id_emergencia) {
         try(Connection connection = sql2o.open()) {
             connection.createQuery("UPDATE Emergencia " +
-                            "SET id_institucion =:id_institucion, tipo =:tipo, equipamiento_necesario =:equipamiento_necesario, titulo =:titulo, descripcion =:descripcion, latitud =:latitud, longitud =:longitud, ubicacionGeom =:ubicacionGeom, direccion =:direccion" +
+                            "SET id_institucion =:id_institucion, tipo =:tipo, equipamiento_necesario =:equipamiento_necesario, titulo =:titulo, descripcion =:descripcion, latitud =:latitud, longitud =:longitud, ubicacionGeom =:ubicacion_geom, direccion =:direccion" +
                             "WHERE id_emergencia =:id_emergencia")
                     .addParameter("id_emergencia", id_emergencia)
                     .addParameter("id_institucion", emergenciaUpdate.getIdInstitucion())
@@ -146,7 +146,7 @@ public class EmergenciaImpl implements EmergenciaRepository {
                     .addParameter("descripcion", emergenciaUpdate.getDescripcion())
                     .addParameter("latitud", emergenciaUpdate.getLatitud())
                     .addParameter("longitud", emergenciaUpdate.getLongitud())
-                    .addParameter("ubicacionGeom", emergenciaUpdate.getUbicacionGeom())
+                    .addParameter("ubicacion_geom", emergenciaUpdate.getUbicacionGeom())
                     .addParameter("direccion", emergenciaUpdate.getDireccion())
                     .executeUpdate();
             return "Informacion actualizada";

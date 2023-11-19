@@ -12,10 +12,10 @@ public class Emergencia {
     private String descripcion;
     private double latitud;
     private double longitud;
-    private Point ubicacionGeom;
+    private Point ubicacion_geom;
     private String direccion;
 
-    public Emergencia(Integer id_emergencia, Integer id_institucion, String tipo, String equipamiento_necesario, String titulo, String descripcion, double latitud, double longitud, Point ubicacionGeom, String direccion) {
+    public Emergencia(Integer id_emergencia, Integer id_institucion, String tipo, String equipamiento_necesario, String titulo, String descripcion, double latitud, double longitud, Point ubicacion_geom, String direccion) {
         this.id_emergencia = id_emergencia;
         this.id_institucion = id_institucion;
         this.tipo = tipo;
@@ -24,7 +24,7 @@ public class Emergencia {
         this.descripcion  = descripcion;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.ubicacionGeom = ubicacionGeom;
+        this.ubicacion_geom = ubicacion_geom;
         this.direccion = direccion;
     }
 
@@ -90,10 +90,10 @@ public class Emergencia {
         return longitud;
     }
     public Point getUbicacionGeom() {
-        return ubicacionGeom;
+        return ubicacion_geom;
     }
     public void setUbicacionGeom(Point ubicacionGeom) {
-        this.ubicacionGeom = ubicacionGeom;
+        this.ubicacion_geom = ubicacion_geom;
     }
     public String getDireccion(){ return direccion;}
     public void setDireccion(String direccion){ this.direccion = direccion;}
