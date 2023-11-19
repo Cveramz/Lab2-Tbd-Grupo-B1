@@ -1,5 +1,6 @@
 package com.chileayuda.voluntariadobackend.Services;
 
+import com.chileayuda.voluntariadobackend.Models.Emergencia;
 import com.chileayuda.voluntariadobackend.Models.Voluntario;
 import com.chileayuda.voluntariadobackend.Repositories.VoluntarioRepository;
 import org.springframework.web.bind.annotation.*;
@@ -77,4 +78,17 @@ public class VoluntarioService{
         voluntarioRepository.deleteByIdVol(id_voluntario);
     }
 
+
+    /*--------------------------------------------------------------------------------------------------------
+     * getVoluntariosCercanos: metodo que obtiene a los voluntarios mas cercanos a una emergencia;
+     *
+     * @param N - cantidad de voluntarios solicitados;
+     * @param emergencia - emergencia solicitada;
+     * @return - la lista de N voluntarios;
+     *
+     --------------------------------------------------------------------------------------------------------*/
+    @GetMapping("/Voluntario/Nvoluntario/")
+    public List<Voluntario> getNVoluntario(@PathVariable Integer N, Emergencia emergencia){
+        return voluntarioRepository.getVoluntariosCercanos(N, emergencia);
+    }
 }
