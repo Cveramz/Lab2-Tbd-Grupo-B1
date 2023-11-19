@@ -29,6 +29,11 @@ const router = createRouter({
       name: 'todasLasEmergencias',
       component: () => import('../views/allEmergencies.vue'),
     },
+    {
+      path: '/addVoluntary',
+      name: 'todasLasEmergencias',
+      component: () => import('../views/voluntaryXd.vue'),
+    },
   ],
 });
 

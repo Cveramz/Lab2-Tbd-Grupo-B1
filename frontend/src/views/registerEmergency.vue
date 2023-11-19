@@ -16,7 +16,8 @@ export default {
     return {
       titulo: '',
       tipo: '',
-      ubicacion: '',
+      latitud: '',
+      longitud: '',
       descripcion: '',
       equipamiento_necesario: '',
     };
@@ -64,8 +65,11 @@ export default {
               <label for="tipo-emergencia">Tipo de emergencia:</label>
               <input type="text" id="tipo-emergencia" v-model="tipo" required>
 
-              <label for="ubicacion">Ubicación:</label>
-              <input type="number" id="ubicacion" v-model="ubicacion" required>
+              <label for="ubicacion">Latitud:</label>
+              <input type="number" id="ubicacion" v-model="latitud" required>
+
+              <label for="ubicacion">Longitud:</label>
+              <input type="number" id="ubicacion" v-model="longitud" required>
 
 
               <label for="descripcion">Descripción y requisitos:</label>
@@ -78,6 +82,7 @@ export default {
 
               <button type="submit">Registrar Emergencia</button>
             </form>
+            <iframe src="https://maps.google.com/maps?q=santiago&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed" frameborder="0" scrolling="no" style="width: 550px; height: 400px;"></iframe> 
           </div>
         </div>
       </div>

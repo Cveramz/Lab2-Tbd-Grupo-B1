@@ -14,11 +14,15 @@ function generarNumeroAleatorio() {
 export default {
   data() {
     return {
-      titulo: '',
-      tipo: '',
-      ubicacion: '',
-      descripcion: '',
-      equipamiento_necesario: '',
+      nombre: '',
+      edad: '',
+      equipamiento: '',
+      estado_salud: '',
+      disponibilidad: '',
+      email_voluntario:'',
+      password_voluntario: '',
+      latitud: '',
+      longitud: '',
     };
   },
   methods: {
@@ -52,32 +56,45 @@ export default {
     <SideBar />
     <div class="view">
       <div class="content">
-        <h1>Voluntario</h1>
+        <h1>Agregar voluntario</h1>
         <p>A continuación rellene la siguiente información</p>
         <div class="form-container">
 
           <div class="card" style="margin-top: 20px;">
             <form @submit.prevent="submitForm">
-              <label for="nombre-emergencia">Nombre de Emergencia:</label>
-              <input type="text" id="nombre-emergencia" v-model="titulo" required>
+              <label for="nombre-emergencia">Nombre voluntario:</label>
+              <input type="text" id="nombre-emergencia" v-model="nombre" required>
 
-              <label for="tipo-emergencia">Tipo de emergencia:</label>
-              <input type="text" id="tipo-emergencia" v-model="tipo" required>
+              <label for="tipo-emergencia">Edad:</label>
+              <input type="number" min="0" id="tipo-emergencia" v-model="edad" required>
 
-              <label for="ubicacion">Ubicación:</label>
-              <input type="text" id="ubicacion" v-model="ubicacion" required>
+              <label for="equipamiento">Equipamiento:</label>
+              <input type="text" id="equipamiento" v-model="equipamiento" required>
 
 
-              <label for="descripcion">Descripción y requisitos:</label>
-              <textarea id="descripcion" v-model="descripcion"
-                placeholder="Detalle su emergencia e ingrese una lista de requisitos"></textarea>
+              <label for="estado">Estado salud:</label>
+              <input id="estado" v-model="estado_salud"/>
 
-              <label for="equipamiento">Equipamiento necesario:</label>
-              <textarea id="equipamiento" v-model="equipamiento_necesario"
-                placeholder="Detalle el equipamiento necesario"></textarea>
+              <label for="disponibilidad">Disponibilidad:</label>
+              <input id="disponibilidad" v-model="disponibilidad"/>
+
+              <label for="email">Email:</label>
+              <input id="email" v-model="email_voluntario"/>
+
+              <label for="password">Password:</label>
+              <input id="password" v-model="password_voluntario"/>
+
+              <label for="latitud">Latitud:</label>
+              <input id="latitud" v-model="latitud"/>
+
+              <label for="longitud">Longitud:</label>
+              <input id="latitud" v-model="longitud" class=""/>
+
+              
 
               <button type="submit">Registrar Emergencia</button>
             </form>
+            <iframe src="https://maps.google.com/maps?q=santiago&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed" frameborder="0" scrolling="no" style="width: 550px; height: 400px;"></iframe> 
           </div>
         </div>
       </div>
@@ -105,6 +122,9 @@ export default {
   max-width: 1200px;
 }
 
+.input {
+  width: 100%;
+}
 
 .card {
   display: flex;
