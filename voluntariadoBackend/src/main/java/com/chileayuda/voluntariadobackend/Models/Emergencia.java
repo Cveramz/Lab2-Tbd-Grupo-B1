@@ -7,25 +7,25 @@ public class Emergencia {
     private Integer id_emergencia;
     private Integer id_institucion;
     private String tipo;
-    private String ubicacion;
     private String equipamiento_necesario;
     private String titulo;
     private String descripcion;
-    private float latitud;
-    private float longitud;
-    private Point ubicacionGeom;
+    private double latitud;
+    private double longitud;
+    private Point ubicacion_geom;
+    private String direccion;
 
-    public Emergencia(Integer id_emergencia, Integer id_institucion, String tipo, String ubicacion, String equipamiento_necesario, String titulo, String descripcion, float latitud, float longitud, Point ubicacionGeom) {
+    public Emergencia(Integer id_emergencia, Integer id_institucion, String tipo, String equipamiento_necesario, String titulo, String descripcion, double latitud, double longitud, Point ubicacion_geom, String direccion) {
         this.id_emergencia = id_emergencia;
         this.id_institucion = id_institucion;
         this.tipo = tipo;
-        this.ubicacion = ubicacion;
         this.equipamiento_necesario = equipamiento_necesario;
         this.titulo = titulo;
         this.descripcion  = descripcion;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.ubicacionGeom = ubicacionGeom;
+        this.ubicacion_geom = ubicacion_geom;
+        this.direccion = direccion;
     }
 
     //GETTERS Y SETTERS
@@ -45,13 +45,6 @@ public class Emergencia {
         this.tipo = tipo;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
 
     public String getEquipamiento_necesario() {
         return equipamiento_necesario;
@@ -84,22 +77,24 @@ public class Emergencia {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    public void setLatitud(float latitud) {
+    public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
-    public float getLatitud() {
+    public double getLatitud() {
         return latitud;
     }
-    public void setLongitud(float longitud) {
+    public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
-    public float getLongitud() {
+    public double getLongitud() {
         return longitud;
     }
     public Point getUbicacionGeom() {
-        return ubicacionGeom;
+        return ubicacion_geom;
     }
     public void setUbicacionGeom(Point ubicacionGeom) {
-        this.ubicacionGeom = ubicacionGeom;
+        this.ubicacion_geom = ubicacion_geom;
     }
+    public String getDireccion(){ return direccion;}
+    public void setDireccion(String direccion){ this.direccion = direccion;}
 }
