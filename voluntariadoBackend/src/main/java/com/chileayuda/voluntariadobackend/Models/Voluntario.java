@@ -1,5 +1,6 @@
 package com.chileayuda.voluntariadobackend.Models;
 
+import java.awt.*;
 
 public class Voluntario {
     //ATRIBUTOS
@@ -12,8 +13,12 @@ public class Voluntario {
     private Boolean disponibilidad;
     private String email_voluntario;
     private String password_voluntario;
+    private double latitud;
+    private double longitud;
 
-    public Voluntario(Long id_voluntario, String nombre_voluntario, int edad, String equipamiento, Boolean estado_salud, Boolean disponibilidad, String email_voluntario, String password_voluntario) {
+    private Point ubicacion_geom;
+
+    public Voluntario(Long id_voluntario, String nombre_voluntario, int edad, String equipamiento, Boolean estado_salud, Boolean disponibilidad, String email_voluntario, String password_voluntario, double latitud, double longitud, Point ubicacion_geom) {
         this.id_voluntario = id_voluntario;
         this.nombre_voluntario = nombre_voluntario;
         this.edad = edad;
@@ -22,6 +27,9 @@ public class Voluntario {
         this.disponibilidad = disponibilidad;
         this.email_voluntario = email_voluntario;
         this.password_voluntario = password_voluntario;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.ubicacion_geom = ubicacion_geom;
     }
 
     public Long getId_voluntario() {
@@ -86,6 +94,24 @@ public class Voluntario {
 
     public void setPassword_voluntario(String password_voluntario) {
         this.password_voluntario = password_voluntario;
+    }
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+    public double getLatitud() {
+        return latitud;
+    }
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
+    public double getLongitud() {
+        return longitud;
+    }
+    public Point getUbicacion_geom() {
+        return ubicacion_geom;
+    }
+    public void setUbicacion_geom(Point ubicacionGeom) {
+        this.ubicacion_geom = ubicacionGeom;
     }
 }
 

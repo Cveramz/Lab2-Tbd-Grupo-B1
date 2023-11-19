@@ -29,7 +29,8 @@ public class VoluntarioService{
     @PostMapping("/voluntario")
     @ResponseBody
     public Voluntario create(@RequestBody Voluntario voluntario) {
-        return voluntarioRepository.createVol(voluntario);
+        voluntarioRepository.createVol(voluntario);
+        return voluntario;
     }
     /*--------------------------------------------------------------------------------------------------------
      * getVolById: metodod que obtiene un voluntario especifico de la BD con su id;

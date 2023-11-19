@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import java.util.List;
+
+
+
 @Repository
 public class EmergenciaImpl implements EmergenciaRepository {
 
@@ -25,17 +28,29 @@ public class EmergenciaImpl implements EmergenciaRepository {
     @Override
     public Emergencia createEmergencia (Emergencia emergencia_in) {
         try (Connection connection = sql2o.open()) {
-            String sql = "INSERT INTO emergencia (id_emergencia,id_institucion, tipo,ubicacion,equipamiento_necesario, titulo, descripcion)" +
-                    "VALUES (:id_emergencia, :id_institucion, :tipo, :ubicacion, :equipamiento_necesario, :titulo, :descripcion)";
-            connection.createQuery(sql, true)
+            String sql = "INSERT INTO emergencia (id_emergencia,id_institucion, tipo,equipamiento_necesario, titulo, descripcion, latitud, longitud, ubicacion_geom, direccion)" +
+                    "VALUES (:id_emergencia, :id_institucion, :tipo, :equipamiento_necesario, :titulo, :descripcion, :latitud, :longitud , :ubicacion_geom, :direccion)";
+            Long id = connection.createQuery(sql, true)
                     .addParameter("id_emergencia", emergencia_in.getIdEmergencia())
                     .addParameter("id_institucion", emergencia_in.getIdInstitucion())
                     .addParameter("tipo", emergencia_in.getTipo())
-                    .addParameter("ubicacion", emergencia_in.getUbicacion())
                     .addParameter("equipamiento_necesario", emergencia_in.getEquipamiento_necesario())
                     .addParameter("titulo", emergencia_in.getTitulo())
                     .addParameter("descripcion", emergencia_in.getDescripcion())
+                    .addParameter("latitud", emergencia_in.getLatitud())
+                    .addParameter("longitud", emergencia_in.getLongitud())
+                    .addParameter("ubicacion_geom", emergencia_in.getUbicacionGeom())
+                    .addParameter("direccion", emergencia_in.getDireccion())
+                    .executeUpdate()
+                    .getKey(Long.class);
+            // Paso 2: Crear el punto geométrico y actualizar la ubicación_geom
+            String updateGeomSql = "UPDATE emergencia SET ubicacion_geom = ST_SetSRID(ST_MakePoint(:latitud, :longitud), 4326) WHERE id_emergencia = :id_emergencia";
+            connection.createQuery(updateGeomSql)
+                    .addParameter("id_emergencia", id)
+                    .addParameter("latitud", emergencia_in.getLatitud())
+                    .addParameter("longitud", emergencia_in.getLongitud())
                     .executeUpdate();
+
             return emergencia_in;
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
@@ -121,16 +136,18 @@ public class EmergenciaImpl implements EmergenciaRepository {
     public String updateEmergencia(Emergencia emergenciaUpdate, Integer id_emergencia) {
         try(Connection connection = sql2o.open()) {
             connection.createQuery("UPDATE Emergencia " +
-                            "SET id_institucion =:id_institucion, tipo =:tipo, ubicacion =:ubicacion, equipamiento_necesario =:equipamiento_necesario" +
+                            "SET id_institucion =:id_institucion, tipo =:tipo, equipamiento_necesario =:equipamiento_necesario, titulo =:titulo, descripcion =:descripcion, latitud =:latitud, longitud =:longitud, ubicacionGeom =:ubicacion_geom, direccion =:direccion" +
                             "WHERE id_emergencia =:id_emergencia")
                     .addParameter("id_emergencia", id_emergencia)
                     .addParameter("id_institucion", emergenciaUpdate.getIdInstitucion())
                     .addParameter("tipo", emergenciaUpdate.getTipo())
-                    .addParameter("emergencia", emergenciaUpdate.getUbicacion())
                     .addParameter("equipamiento_necesario", emergenciaUpdate.getEquipamiento_necesario())
                     .addParameter("titulo", emergenciaUpdate.getTitulo())
                     .addParameter("descripcion", emergenciaUpdate.getDescripcion())
-
+                    .addParameter("latitud", emergenciaUpdate.getLatitud())
+                    .addParameter("longitud", emergenciaUpdate.getLongitud())
+                    .addParameter("ubicacion_geom", emergenciaUpdate.getUbicacionGeom())
+                    .addParameter("direccion", emergenciaUpdate.getDireccion())
                     .executeUpdate();
             return "Informacion actualizada";
         } catch (Exception exception) {
