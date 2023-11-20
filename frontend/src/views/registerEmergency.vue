@@ -42,6 +42,7 @@ const submitForm = async () => {
     const response = await axios.post(apiUrl, auxObject);
     console.log('Respuesta del servidor:', response.data);
     alert('Emergencia registrada con éxito.');
+    alert('Su id de emergencia es: ' + auxObject.id_emergencia);
   } catch (error) {
     console.error(auxObject);
     console.error('Error al enviar el formulario:', error);
