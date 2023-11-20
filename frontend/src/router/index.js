@@ -10,6 +10,11 @@ const router = createRouter({
       alias: '/inicio',
     },
     {
+      path: '/allEmergencies',
+      name: 'todasLasEmergencias',
+      component: () => import('../views/allEmergenciesView.vue'),
+    },
+    {
       path: '/tasks',
       name: 'tareas',
       component: () => import('../views/taskView.vue'),
@@ -25,13 +30,8 @@ const router = createRouter({
       component: () => import('../views/registerEmergency.vue'),
     },
     {
-      path: '/allEmergencies',
-      name: 'todasLasEmergencias',
-      component: () => import('../views/allEmergencies.vue'),
-    },
-    {
       path: '/addVoluntary',
-      name: 'todasLasEmergencias',
+      name: 'agregarVoluntario',
       component: () => import('../views/voluntaryXd.vue'),
     },
   ],
