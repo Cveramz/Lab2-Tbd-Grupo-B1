@@ -172,7 +172,7 @@ public class VoluntarioImpl implements VoluntarioRepository {
    */
 
     @Override
-    public List<Voluntario> getVoluntariosCercanos(Integer N, Emergencia emergencia) {
+    public List<Voluntario> getVoluntariosCercanos(Integer N, Integer id_emergencia) {
         try (Connection connection = sql2o.open()) {
             String query = "SELECT v.id_voluntario, v.nombre_voluntario, v.latitud, v.longitud, " +
                     "ST_DistanceSphere(ST_SetSRID(ST_MakePoint(v.longitud, v.latitud), 4326), " +
@@ -182,7 +182,7 @@ public class VoluntarioImpl implements VoluntarioRepository {
                     "ORDER BY distancia_en_metros LIMIT :limit";
 
             List<Voluntario> voluntarios = connection.createQuery(query)
-                    .addParameter("id_emergencia", emergencia.getIdEmergencia())
+                    .addParameter("id_emergencia", id_emergencia)
                     .addParameter("limit", N)
                     .executeAndFetch(Voluntario.class);
 

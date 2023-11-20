@@ -88,7 +88,7 @@ public class VoluntarioService{
      *
      --------------------------------------------------------------------------------------------------------*/
     @GetMapping("/Voluntario/Nvoluntario/")
-    public List<Voluntario> getNVoluntario(@PathVariable Integer N, Emergencia emergencia){
-        return voluntarioRepository.getVoluntariosCercanos(N, emergencia);
+    public List<Voluntario> getNVoluntario(@PathVariable Integer N, Integer id_emergencia){
+        return voluntarioRepository.getVoluntariosCercanos(N, id_emergencia);
     }
 }
