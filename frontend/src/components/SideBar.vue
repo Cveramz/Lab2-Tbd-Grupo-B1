@@ -20,13 +20,13 @@ function handleOpen() {
         <img class="imgWhiteFilter" src="../assets/add.svg" height="30" />
         <div :class="['buttonText', { 'buttonTextOpened': opened }]">Crear emergencia</div>
       </router-link>
-      <router-link to="/allEmergencies" :class="['button', { 'buttonOpened': opened }]"> 
-        <img class="imgWhiteFilter" src="../assets/folder.svg" height="30" />
-        <div :class="['buttonText', { 'buttonTextOpened': opened }]">Todas las emergencias</div>
+      <router-link to="/addVoluntary" :class="['button', { 'buttonOpened': opened }]"> 
+        <img class="imgWhiteFilter" src="../assets/add.svg" height="30" />
+        <div :class="['buttonText', { 'buttonTextOpened': opened }]">Crear voluntario</div>
       </router-link>
-      <router-link to="/history" :class="['button', { 'buttonOpened': opened }]"> 
-        <img class="imgWhiteFilter" src="../assets/history.svg" height="30" />
-        <div :class="['buttonText', { 'buttonTextOpened': opened }]">Emergencias finalizadas</div>
+      <router-link to="/nearbyVolunteers" :class="['button', { 'buttonOpened': opened }]"> 
+        <img class="imgWhiteFilter" src="../assets/folder.svg" height="30" />
+        <div :class="['buttonText', { 'buttonTextOpened': opened }]">Voluntarios cercanos</div>
       </router-link>
   </div>
     <router-link to="/" :class="['button', { 'buttonOpened': opened }]"> 

@@ -32,8 +32,13 @@ const router = createRouter({
     {
       path: '/addVoluntary',
       name: 'agregarVoluntario',
-      component: () => import('../views/voluntaryXd.vue'),
+      component: () => import('../views/addVoluntary.vue'),
     },
+    {
+      path: '/nearbyVolunteers',
+      name: 'voluntariosCercanos',
+      component: () => import('../views/nearbyVolunteers.vue'),
+    }
   ],
 });
 
