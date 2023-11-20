@@ -7,17 +7,28 @@ import { ref, onMounted } from 'vue';
 
 const generarNumeroAleatorio = () => Math.floor(Math.random() * 10000001);
 
-const coordenadas = ref({ latitud: 0, longitud: 0 }); // Inicializamos con 0
-
+const coordenadas = ref({ latitud: 0, longitud: 0 });
+const direccion = ref('');
+const ubicacionMessage = ref('');
 const titulo = ref('');
 const tipo = ref('');
 const descripcion = ref('');
 const equipamiento_necesario = ref('');
-const ubicacionMessage = ref('');
 
-const actualizarUbicacion = (lat, lng) => {
+const actualizarUbicacion = async (lat, lng) => {
   coordenadas.value = { latitud: lat, longitud: lng };
-  ubicacionMessage.value = `Ubicación actualizada:\nLatitud: ${lat}\nLongitud: ${lng}`;
+  
+  try {
+    const response = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`);
+    
+    if (response.data.features && response.data.features.length > 0) {
+      const direccionCompleta = response.data.features[0].place_name;
+      direccion.value = direccionCompleta;
+      ubicacionMessage.value = `Ubicación actualizada:\nLatitud: ${lat}\nLongitud: ${lng}\nDirección: ${direccionCompleta}`;
+    }
+  } catch (error) {
+    console.error('Error al obtener la dirección:', error);
+  }
 };
 
 const submitForm = async () => {
@@ -35,6 +46,7 @@ const submitForm = async () => {
     equipamiento_necesario: equipamiento_necesario.value,
     titulo: titulo.value,
     descripcion: descripcion.value,
+    direccion: direccion.value, // Agrega la propiedad direccion aquí
   };
 
   try {
@@ -48,8 +60,6 @@ const submitForm = async () => {
     console.error('Error al enviar el formulario:', error);
   }
 };
-
-
 
 
 onMounted(() => {
@@ -98,6 +108,9 @@ onMounted(() => {
               <label for="ubicacion">Longitud:</label>
               <input type="number" v-model="coordenadas.longitud" placeholder="Longitud" step="0.000000000000001" min="-180" max="180" />
 
+              <label for="direccion">Dirección:</label>
+              <input type="text" id="direccion" v-model="direccion" readonly>
+
               <button type="submit">Registrar Emergencia</button>
             </form>
             <div>
@@ -110,6 +123,7 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .view {
