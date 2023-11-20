@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @Repository
@@ -171,20 +173,18 @@ public class VoluntarioImpl implements VoluntarioRepository {
     }
    */
 
-    @Override
-    public List<Voluntario> getVoluntariosCercanos(Integer N, Integer id_emergencia) {
+    public List<Map<String, Object>> getVoluntariosCercanos(Integer N, Integer id_emergencia) {
         try (Connection connection = sql2o.open()) {
             String query = "SELECT v.id_voluntario, v.nombre_voluntario, v.latitud, v.longitud, " +
                     "ST_DistanceSphere(ST_SetSRID(ST_MakePoint(v.longitud, v.latitud), 4326), " +
                     "ST_SetSRID(ST_MakePoint(e.longitud, e.latitud), 4326)) AS distancia_en_metros " +
-                    "FROM voluntario v " +
-                    "CROSS JOIN (SELECT latitud, longitud FROM emergencia WHERE id_emergencia = :id_emergencia) e " +
+                    "FROM voluntario v, (SELECT latitud, longitud FROM emergencia WHERE id_emergencia = :id_emergencia) e " +
                     "ORDER BY distancia_en_metros LIMIT :limit";
 
-            List<Voluntario> voluntarios = connection.createQuery(query)
+            List<Map<String, Object>> voluntarios = connection.createQuery(query)
                     .addParameter("id_emergencia", id_emergencia)
                     .addParameter("limit", N)
-                    .executeAndFetch(Voluntario.class);
+                    .executeAndFetchTable().asList();
 
             return voluntarios;
         } catch (Exception exception) {
@@ -192,6 +192,10 @@ public class VoluntarioImpl implements VoluntarioRepository {
             return null;
         }
     }
+
+
+
+
 
 
 

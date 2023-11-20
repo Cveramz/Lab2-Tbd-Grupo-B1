@@ -32,6 +32,8 @@ public class Voluntario {
         this.ubicacion_geom = ubicacion_geom;
     }
 
+
+
     public Long getId_voluntario() {
         return id_voluntario;
     }

@@ -6,6 +6,7 @@ import com.chileayuda.voluntariadobackend.Repositories.VoluntarioRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -88,7 +89,13 @@ public class VoluntarioService{
      *
      --------------------------------------------------------------------------------------------------------*/
     @GetMapping("/Voluntario/Nvoluntario/")
-    public List<Voluntario> getNVoluntario(@PathVariable Integer N, Integer id_emergencia){
+    public List<Map<String, Object>> getNVoluntario(@RequestParam Integer N, @RequestParam Integer id_emergencia) {
         return voluntarioRepository.getVoluntariosCercanos(N, id_emergencia);
     }
+
+
+
+
+
+
 }
