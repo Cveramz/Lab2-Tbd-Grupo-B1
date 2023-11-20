@@ -44,7 +44,7 @@ public class EmergenciaImpl implements EmergenciaRepository {
                     .executeUpdate()
                     .getKey(Long.class);
             // Paso 2: Crear el punto geométrico y actualizar la ubicación_geom
-            String updateGeomSql = "UPDATE emergencia SET ubicacion_geom = ST_SetSRID(ST_MakePoint(:latitud, :longitud), 4326) WHERE id_emergencia = :id_emergencia";
+            String updateGeomSql = "UPDATE emergencia SET ubicacion_geom = ST_SetSRID(ST_MakePoint(:longitud, :latitud), 4326) WHERE id_emergencia = :id_emergencia";
             connection.createQuery(updateGeomSql)
                     .addParameter("id_emergencia", id)
                     .addParameter("latitud", emergencia_in.getLatitud())

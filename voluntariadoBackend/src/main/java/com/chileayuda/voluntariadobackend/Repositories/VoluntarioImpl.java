@@ -51,7 +51,7 @@ public class VoluntarioImpl implements VoluntarioRepository {
                     .getKey(Long.class);
 
             // Paso 2: Crear el punto geométrico y actualizar la ubicación_geom
-            String updateGeomSql = "UPDATE voluntario SET ubicacion_geom = ST_SetSRID(ST_MakePoint(:latitud, :longitud), 4326) WHERE id_voluntario = :id_voluntario";
+            String updateGeomSql = "UPDATE voluntario SET ubicacion_geom = ST_SetSRID(ST_MakePoint(:longitud, :latitud), 4326) WHERE id_voluntario = :id_voluntario";
             connection.createQuery(updateGeomSql)
                     .addParameter("id_voluntario", id)
                     .addParameter("latitud", voluntario.getLatitud())
