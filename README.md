@@ -1,6 +1,6 @@
-# TBD - LABORATORIO 1
+# TBD - LABORATORIO 2
 
- Repositorio correspondiente al primer laboratorio del Taller de Base de Datos, USACH, 1/2023.
+ Repositorio correspondiente al segundo laboratorio del Taller de Base de Datos, USACH, 1/2023.
 
 ## CONTEXTO 
 
@@ -12,12 +12,13 @@
  Por parte de Frontend Vue 3 y Axios.
 
 ## EjECUCIÓN BASE DE DATOS
+*Mensaje importante: Debe tener instalando Postgis porque la base de datos lo requiere.
 
 Abrir PgAdmin y seleccionar un servidor, dentro de este crear una base de datos para luego abrir la QueryTool (o herramienta de consulta) para ejecutar los scripts:
 
-1. Abrir "CreatedbControl2.sql", en este caso ya está creada la base de datos por lo que se puede eliminar la primera linea para evitar problemas y luego ejecutar.
+1. Abrir "CreateLab2TBD.sql", en este caso ya está creada la base de datos por lo que se puede eliminar la primera linea para evitar problemas y luego ejecutar.
 
-2. A modo de prueba se puede poblar la base de datos con el archivo "loadDataControl2.sql" y ejecutar.
+2. A modo de prueba se puede poblar la base de datos con el archivo "PoblateLab2TBD.sql" y ejecutar.
 
 ## EJECUCIÓN BACKEND
 
