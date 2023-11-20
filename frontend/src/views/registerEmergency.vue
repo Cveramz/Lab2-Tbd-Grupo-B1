@@ -109,7 +109,7 @@ onMounted(() => {
               <input type="number" v-model="coordenadas.longitud" placeholder="Longitud" step="0.000000000000001" min="-180" max="180" />
 
               <label for="direccion">Dirección:</label>
-              <input type="text" id="direccion" v-model="direccion" readonly>
+              <input type="text" id="direccion" v-model="direccion">
 
               <button type="submit">Registrar Emergencia</button>
             </form>
